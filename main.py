@@ -1,17 +1,22 @@
 from stats import get_word_count, get_alphabet_count
+import sys
 
 def main():
-    BOOK_TITLE = "frankenstein"
-
-    print("============ BOOKBOT ============")
-    path_to_book_file = f"./books/{BOOK_TITLE}.txt"
+    # validate command line argument.
+    if len(sys.argv) != 2:
+        print(f"Usage: python3 main.py <path_to_book>")
+        exit(1)
+    path_to_book_file = sys.argv[1] # TODO
+    # file_content = get_book_text("./" + path_to_book_file)
     file_content = get_book_text(path_to_book_file)
     # print(file_content)
-    print(f"Analyzing book found at books/{BOOK_TITLE}.txt...")
+
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {path_to_book_file}...")
 
     print("----------- Word Count ---------- ")
     word_count = get_word_count(file_content)
-    print(f"Found {word_count} total words") #TODO 2
+    print(f"Found {word_count} total words")
 
     print("--------- Character Count ------- ")
     character_to_count = get_alphabet_count(file_content) # TODO: 命名 単数形_to_単数形 でいいのか？
@@ -22,9 +27,13 @@ def main():
     print("============= END =============== ")
 
 def get_book_text(path_to_book_file)-> str:
-    with open(path_to_book_file) as f:
-        file_content = f.read()
-    return file_content
+    try:
+        with open(path_to_book_file) as f:
+            file_content = f.read()
+        return file_content
+    except FileNotFoundError:
+        print(f"File[{path_to_book_file}] cannot be found.")
+        exit(2) # ref: https://en.wikipedia.org/wiki/Errno.h
 
 def prity_print(character_to_count: list) -> None:
     # for character, count in character_to_count:
