@@ -11,7 +11,7 @@ def main():
 
     print("----------- Word Count ---------- ")
     word_count = get_word_count(file_content)
-    print(f"{word_count} words found in the document") #TODO 2
+    print(f"Found {word_count} total words") #TODO 2
 
     print("--------- Character Count ------- ")
     character_to_count = get_alphabet_count(file_content) # TODO: 命名 単数形_to_単数形 でいいのか？
